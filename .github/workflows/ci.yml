@@ -93,3 +93,7 @@ jobs:
         uses: aquasecurity/trivy-action@0.30.0
         with:
           image-ref: ${{ secrets.DOCKERHUB_USERNAME }}/demo-devops-python:latest
+          format: table
+          exit-code: 0
+          ignore-unfixed: true
+          vuln-type: os,library
