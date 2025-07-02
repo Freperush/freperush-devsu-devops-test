@@ -1,4 +1,4 @@
-FROM python:3.11
+FROM python:3.11-slim
 
 # 🟢 Crear usuario y grupo no root
 RUN addgroup --system appgroup && adduser --system --ingroup appgroup appuser
@@ -26,5 +26,6 @@ EXPOSE ${DJANGO_PORT}
 # 🟡 Healthcheck
 HEALTHCHECK --interval=30s --timeout=3s --start-period=20s --retries=3 \
   CMD curl -f http://localhost:${DJANGO_PORT}/api/ || exit 1
+
 
   CMD ["sh", "-c", "python manage.py migrate && python manage.py runserver 0.0.0.0:${DJANGO_PORT}"]

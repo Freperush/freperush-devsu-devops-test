@@ -6,7 +6,7 @@ services:
     env_file:
       - .env
     ports:
-      - "${DJANGO_PORT:-8765}:${DJANGO_PORT:-8765}"
+      - "${DJANGO_PORT_SERV:-8765}:${DJANGO_PORT:-8765}"
     volumes:
       - .:/app
     restart: unless-stopped
