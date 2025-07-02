@@ -12,6 +12,7 @@ jobs:
     env:
       DJANGO_SECRET_KEY: ${{secrets.DJANGO_SECRET_KEY}}
       DJANGO_SETTINGS_MODULE: demo.settings
+      DATABASE_NAME: db.sqlite3
       DJANGO_PORT: 8765
       PYTHONUNBUFFERED: 1
       
