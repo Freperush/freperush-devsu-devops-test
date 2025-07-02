@@ -49,11 +49,12 @@ jobs:
         run: python manage.py migrate
     
       - name: Run unit tests
-        run: python manage.py test
-
-      - name: Run unit tests with coverage
-        run: pytest --cov=. --cov-report=xml
-
+        run: |
+              pip install coverage
+              coverage run manage.py test
+              coverage xml
+              
+            
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4
         with:
