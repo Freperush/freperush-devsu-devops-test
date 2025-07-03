@@ -2,6 +2,8 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: demo-config
+  namespace: namespace-devops-python
+
 data:
   DJANGO_PORT: "8765"
   DATABASE_NAME: "db.sqlite3"
