@@ -1,3 +1,7 @@
+# Instalar NGINX Ingress Controller kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/cloud/deploy.yaml
+
+
+
 # Demo Devops Python
 
 This is a simple application to be used in the technical test of DevOps.

@@ -2,9 +2,9 @@ name: CI Django
 
 on:
   push:
-    branches: [ github-actions ]
+    branches: [ kubernetes, github-actions ]
   pull_request:
-    branches: [ github-actions ]
+    branches: [ kubernetes, github-actions ]
 
 jobs:
   test:
