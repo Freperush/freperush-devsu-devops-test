@@ -139,4 +139,10 @@ jobs:
 
       - name: Apply Kubernetes manifests
         run: |
-          kubectl apply -f k8s/ -n namespace-devops-python
+          kubectl apply -f k8s/Remote/namespace.yaml
+          kubectl apply -f k8s/Remote/configmap.yaml -n namespace-devops-python
+          kubectl apply -f k8s/Remote/secret.yaml -n namespace-devops-python
+          kubectl apply -f k8s/Remote/deployment.yaml -n namespace-devops-python
+          kubectl apply -f k8s/Remote/service.yaml -n namespace-devops-python
+          kubectl apply -f k8s/Remote/hpa.yaml -n namespace-devops-python
+          kubectl apply -f k8s/Remote/ingress.gke.yaml -n namespace-devops-python

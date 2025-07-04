@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: demo-config
+  namespace: namespace-devops-python
+
+data:
+  DJANGO_PORT: "8765"
+  DATABASE_NAME: "db.sqlite3"
+  OTHER_CONFIG: "value"  # Add other non-sensitive configuration data as needed
+  settings: demo.settings
+  ALLOWED_HOSTS: "demo-devops-python.local,localhost,127.0.0.1"
