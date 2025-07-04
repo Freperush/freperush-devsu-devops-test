@@ -111,7 +111,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Autenticación con JSON
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v2
         with:
@@ -121,14 +120,24 @@ jobs:
         uses: google-github-actions/setup-gcloud@v2
         with:
           project_id: chatbot-laguna-370814
-     
-      - name: Configure Docker with GCR
+          # Instalar componentes necesarios
+          install_components: 'gke-gcloud-auth-plugin'
+
+      - name: Install kubectl
         run: |
-          gcloud auth configure-docker --quiet
+          sudo apt-get update
+          sudo apt-get install -y kubectl
+
+      - name: Configure gcloud for kubectl
+        run: |
+          gcloud components install kubectl
+          gcloud config set container/use_gke_gcloud_authentication true
 
       - name: Get GKE credentials
         run: |
-          gcloud container clusters get-credentials dev-cluster --region us-central1
+          gcloud container clusters get-credentials dev-cluster \
+            --region us-central1 \
+            --project chatbot-laguna-370814
 
       - name: Apply Kubernetes manifests
         run: |
