@@ -111,28 +111,25 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Decode and save GCP credentials
-        run: |
-             echo "${{ secrets.GCP_SA_KEY_BASE64 }}" | base64 -d > gcp-key.json
-
-      - name: Authenticate with Google Cloud
+      # Autenticación con JSON
+      - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v2
         with:
-         credentials_json: '${{ secrets.GCP_SA_KEY_BASE64 }}'
+          credentials_json: ${{ secrets.GCP_SA_KEY_JSON }}
 
       - name: Set up gcloud CLI
         uses: google-github-actions/setup-gcloud@v2
         with:
           project_id: chatbot-laguna-370814
+     
+      - name: Configure Docker with GCR
+        run: |
+          gcloud auth configure-docker --quiet
 
       - name: Get GKE credentials
         run: |
-          gcloud container clusters get-credentials dev-cluster \
-          --region us-central1 \
-           --project chatbot-laguna-370814
-           sed -i 's/gke-gcloud-auth-plugin/gcloud/' ~/.kube/config
-      
+          gcloud container clusters get-credentials dev-cluster --region us-central1
 
-      - name: Apply Kubernetes manifests to GKE
+      - name: Apply Kubernetes manifests
         run: |
           kubectl apply -f k8s/ -n namespace-devops-python
