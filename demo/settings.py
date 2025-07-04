@@ -16,7 +16,8 @@ SECRET_KEY = env('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*', '10.108.0.3', '10.108.0.67', 'demo-devops-python.local']
+
 
 
 # Application definition
