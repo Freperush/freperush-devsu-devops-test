@@ -13,3 +13,4 @@ spec:
       port: 80         
       targetPort: 8765  
   type: ClusterIP      
+  
