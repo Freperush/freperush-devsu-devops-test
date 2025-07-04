@@ -4,10 +4,11 @@ metadata:
   name: demo-devops-python-ingress
   namespace: namespace-devops-python
   annotations:
-    kubernetes.io/ingress.class: "gce"
+    kubernetes.io/ingress.class: "gce"  # Esto le dice a GKE que use el controlador clásico
 spec:
   rules:
-    - http:
+    - host: demo-devops-python.local
+      http:
         paths:
           - path: /
             pathType: Prefix

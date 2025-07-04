@@ -4,10 +4,10 @@ metadata:
   name: demo-devops-python-service
   namespace: namespace-devops-python
 spec:
-  type: ClusterIP
-  ports:
-    - port: 8765
-      targetPort: 8765
-      protocol: TCP
+  type: NodePort
   selector:
     app: demo-devops-python
+  ports:
+    - protocol: TCP
+      port: 80         
+      targetPort: 8765 
