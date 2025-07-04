@@ -5,12 +5,13 @@ metadata:
   namespace: namespace-devops-python
   annotations:
     cloud.google.com/neg: '{"ingress":true}'
+    cloud.google.com/backend-config: '{"default":"demo-devops-python-backendconfig"}'
 spec:
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8765
+    protocol: TCP
   selector:
     app: demo-devops-python
-  ports:
-    - name: http
-      port: 80         
-      targetPort: 8765  
-  type: ClusterIP      
-  
+  type: ClusterIP

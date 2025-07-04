@@ -1,0 +1,14 @@
+apiVersion: cloud.google.com/v1
+kind: BackendConfig
+metadata:
+  name: demo-devops-python-backendconfig
+  namespace: namespace-devops-python
+spec:
+  healthCheck:
+    type: HTTP
+    requestPath: /api/
+    port: 8765
+    checkIntervalSec: 30
+    timeoutSec: 10
+    healthyThreshold: 1
+    unhealthyThreshold: 3

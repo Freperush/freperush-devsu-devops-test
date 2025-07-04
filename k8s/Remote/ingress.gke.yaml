@@ -4,17 +4,17 @@ metadata:
   name: demo-devops-python-ingress
   namespace: namespace-devops-python
   annotations:
-    kubernetes.io/ingress.class: "gce"  # Esto le dice a GKE que use el controlador clásico
+    kubernetes.io/ingress.class: "gce"
+    cloud.google.com/backend-config: '{"default":"demo-devops-python-backendconfig"}'
 spec:
-  ingressClassName: gce
   rules:
-    - host: demo-devops-python.local
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: demo-devops-python-service
-                port:
-                  number: 8765
+  - host: demo-devops-python.local  
+    http:
+      paths:
+      - path: /api/*
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: demo-devops-python-service
+            port:
+              number: 80
