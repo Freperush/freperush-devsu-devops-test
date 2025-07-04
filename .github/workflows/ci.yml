@@ -127,7 +127,11 @@ jobs:
 
       - name: Get GKE credentials
         run: |
-          gcloud container clusters get-credentials dev-cluster --region us-central1
+          gcloud container clusters get-credentials dev-cluster \
+          --region us-central1 \
+           --project chatbot-laguna-370814
+           sed -i 's/gke-gcloud-auth-plugin/gcloud/' ~/.kube/config
+      
 
       - name: Apply Kubernetes manifests to GKE
         run: |
