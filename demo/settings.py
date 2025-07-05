@@ -14,7 +14,14 @@ env.read_env(BASE_DIR / '.env')
 SECRET_KEY = env('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-ALLOWED_HOSTS = ['localhost', 'demo-devops-python.local']
+ALLOWED_HOSTS = ALLOWED_HOSTS = [
+    'localhost',
+    'demo-devops-python.local',
+    '10.82.128.0/24',  # Rango de IPs de los pods
+    '10.0.0.0/8',      # Todo el rango interno de GCP
+    '130.211.0.0/22',  # Rangos de health checks
+    '35.191.0.0/16'    # Rangos de health checks
+]
 # Application definition
 
 DJANGO_APPS = [
