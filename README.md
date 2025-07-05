@@ -18,7 +18,6 @@ Este proyecto es una solución integral para la prueba técnica DevOps. Consiste
 - [Variables de Entorno](#variables-de-entorno)
 - [Pruebas y Cobertura](#pruebas-y-cobertura)
 - [Acceso Público y Resultados](#acceso-público-y-resultados)
-- [Justificación de Requerimientos](#justificación-de-requerimientos)
 - [Referencias](#referencias)
 
 ---
@@ -111,30 +110,56 @@ flowchart TD
 
 ### 🔄 Flujo del Pipeline
 ```mermaid
-graph TD
-    A[GitHub Repository] --> B(CI Pipeline)
-    B --> C{Test Stage}
-    B --> D{Docker Stage}
-    B --> E{Deploy Stage}
+---
+config:
+  layout: dagre
+  rankDir: LR
+---
+flowchart TD
+    GH["GitHub Repository"] --> Test["Test Job"] & Deploy["Deploy Job"] & Docker["Docker Job"]
     
-    C --> C1[Unit Tests]
-    C --> C2[Integration Tests]
-    C --> C3[Linting]
-    C --> C4[Coverage]
-    C --> C5[(PostgreSQL)]
+    %% Left side - Test Job
+    Test --> T1["• Checkout Code"]
+    T1 --> Dep5a["• Setup Python 3.11"]
+    Dep5a --> Dep5b["• Install Dependencies"]
+    Dep5b --> Dep5c["• Run Migrations"]
+    Dep5c --> Dep5d["• Run Tests"]
+    Dep5d --> Dep5e["• Coverage"]
+    Dep5e --> Dep5f["• flake8"]
+    Dep5f --> T8["Services: PostgreSQL Container"]
     
-    D --> D1[Multi-arch Build]
-    D --> D2[Trivy Scan]
-    D --> D3[Push to DockerHub]
+    %% Center - Deploy Job
+    Deploy --> n4["• Checkout Code"]
+    n4 --> Dep5g["• Setup Docker Buildx"]
+    Dep5g --> D4a["• Login to DockerHub"]
+    D4a --> n1["• Build & Push Image\n- Multi-arch build\n- Tag with SHA/latest"]
+    n1 --> D4b["• Scan with Trivy"]
     
-    E --> E1[GKE Authentication]
-    E --> E2[Kubernetes Deployment]
-    E --> F[(GKE Cluster)]
+    %% Right side - Docker Job
+    Docker --> n3["• Checkout Code"]
+    n3 --> n2["• Setup gcloud CLI"]
+    n2 --> n5["• Authenticate GCP"]
+    n5 --> n6["• Get GKE Credentials"]
+    n6 --> n7["• Apply K8s Manifests"]
+    n7 --> GKE["Google Kubernetes Engine"]
     
-    F --> F1[Deployment]
-    F --> F2[Service]
-    F --> F3[Ingress]
-    F --> F4[HPA]
+    %% GKE details (puede moverse a la derecha también)
+    GKE --> GKE1["• Dev Cluster"]
+    GKE1 --> GKE2["• us-central1"]
+    GKE2 --> GKE3["• Auto-scaling"]
+    GKE3 --> GKE4["• Ingress Controller"]
+
+    classDef repo fill:#24292f,stroke:#444,color:#fff,stroke-width:2px
+    classDef job fill:#2b3137,stroke:#444,color:#fff,stroke-width:1px
+    classDef step fill:#f6f8fa,stroke:#d0d7de,color:#000,stroke-width:1px
+    classDef cluster fill:#f0fff4,stroke:#2b3137,color:#000,stroke-width:2px
+    
+    GH:::repo
+    Test:::job
+    Deploy:::job
+    Docker:::job
+    GKE:::cluster
+    GKE1:::step
 ```
 ---
 
