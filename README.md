@@ -250,7 +250,7 @@ Ver reporte completo: [https://codecov.io/gh/Freperush/freperush-devsu-devops-te
     Para acceder correctamente al endpoint `http://demo-devops-python.local/api/users/`, es necesario agregar una entrada al archivo `/etc/hosts` de tu sistema.
     ### Paso 1: Editar el archivo /etc/hosts
     Agrega la siguiente línea al final del archivo:
-    34.107.142.136       demo-devops-python.local
+    34.132.50.90       demo-devops-python.local
     > Nota: Este archivo requiere permisos de administrador. Puedes editarlo con:
     > sudo nano /etc/hosts
     ### Paso 2: Probar el acceso
