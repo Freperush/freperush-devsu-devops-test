@@ -5,36 +5,21 @@ metadata:
   namespace: namespace-devops-python
   annotations:
     kubernetes.io/ingress.class: "gce"
+    networking.gke.io/v1beta1.FrontendConfig: "demo-devops-python-frontendconfig"
 spec:
+  defaultBackend:
+    service:
+      name: demo-devops-python-service
+      port:
+        number: 80
   rules:
-    - host: demo-devops-python.local
-      http:
-        paths:
-          - path: /
-            pathType: ImplementationSpecific
-            backend:
-              service:
-                name: demo-devops-python-service
-                port:
-                  number: 80
-          - path: /api/*
-            pathType: ImplementationSpecific
-            backend:
-              service:
-                name: demo-devops-python-service
-                port:
-                  number: 80
-          - path: /static/*
-            pathType: ImplementationSpecific
-            backend:
-              service:
-                name: demo-devops-python-service
-                port:
-                  number: 80
-          - path: /admin/*
-            pathType: ImplementationSpecific
-            backend:
-              service:
-                name: demo-devops-python-service
-                port:
-                  number: 80
+  - host: demo-devops-python.local
+    http:
+      paths:
+      - path: /*
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: demo-devops-python-service
+            port:
+              number: 80

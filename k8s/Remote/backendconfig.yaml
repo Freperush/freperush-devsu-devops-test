@@ -6,7 +6,7 @@ metadata:
 spec:
   healthCheck:
     type: HTTP
-    requestPath: /
+    requestPath: /api/
     port: 8765
     checkIntervalSec: 30
     timeoutSec: 10

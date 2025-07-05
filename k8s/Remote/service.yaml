@@ -11,7 +11,6 @@ spec:
   - name: http
     port: 80
     targetPort: 8765
-    protocol: TCP
   selector:
     app: demo-devops-python
   type: ClusterIP
