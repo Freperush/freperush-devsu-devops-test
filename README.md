@@ -102,46 +102,40 @@ flowchart TD
   - [Enlace a ejecución exitosa del pipeline](https://github.com/Freperush/freperush-devsu-devops-test/actions/runs/16066805790)  
 
   Arquitectura CI/CD para Django con Kubernetes
-┌───────────────────────────────────────────────────────────────────────────────┐
-│                                                                               │
-│                              GitHub Repository                                │
-│                                                                               │
-└───────────────┬───────────────────────┬───────────────────────┬───────────────┘
-                │                       │                       │
-                ▼                       ▼                       ▼
-┌─────────────────────────┐ ┌───────────────────────┐ ┌───────────────────────┐
-│                         │ │                       │ │                       │
-│        Test Job         │ │     Docker Job        │ │     Deploy Job        │
-│                         │ │                       │ │                       │
-└───────────────┬─────────┘ └───────────┬───────────┘ └───────────┬───────────┘
-                │                       │                           │
-                ▼                       ▼                           ▼
-┌─────────────────────────┐ ┌───────────────────────┐ ┌───────────────────────┐
-│ 1. Checkout Code        │ │ 1. Checkout Code      │ │ 1. Checkout Code      │
-│ 2. Setup Python 3.11    │ │ 2. Setup Docker Buildx│ │ 2. Setup gcloud CLI   │
-│ 3. Install Dependencies │ │ 3. Login to DockerHub │ │ 3. Authenticate GCP   │
-│ 4. Run Migrations       │ │ 4. Build & Push Image │ │ 4. Get GKE Credentials│
-│ 5. Run Tests (pytest)   │ │   - Multi-arch build  │ │ 5. Apply K8s Manifests│
-│ 6. Upload Coverage      │ │   - Tag with SHA/latest│ │   - Namespace         │
-│ 7. Lint with flake8     │ │ 5. Scan with Trivy    │ │   - ConfigMap         │
-│                         │ │                       │ │   - Secret            │
-│  Services:              │ │                       │ │   - Deployment        │
-│  - PostgreSQL Container │ │                       │ │   - Service           │
-│    (for testing)        │ │                       │ │   - HPA               │
-│                         │ │                       │ │   - Ingress           │
-└─────────────────────────┘ └───────────────────────┘ └───────────────────────┘
-                                                       │
-                                                       ▼
-                                             ┌───────────────────────┐
-                                             │   Google Kubernetes   │
-                                             │       Engine          │
-                                             │                       │
-                                             │ - Dev Cluster         │
-                                             │ - us-central1         │
-                                             │ - Auto-scaling        │
-                                             │ - Ingress Controller  │
-                                             └───────────────────────┘
 
+## 🚀 Pipeline CI/CD
+
+### 📌 Configuración
+- **Archivo:** [`.github/workflows/ci.yml`](.github/workflows/ci.yml)
+- **Última ejecución exitosa:** [Ver detalles](https://github.com/Freperush/freperush-devsu-devops-test/actions/runs/16066805790)
+
+### 🔄 Flujo del Pipeline
+```mermaid
+graph TD
+    A[GitHub Repository] --> B(CI Pipeline)
+    B --> C{Test Stage}
+    B --> D{Docker Stage}
+    B --> E{Deploy Stage}
+    
+    C --> C1[Unit Tests]
+    C --> C2[Integration Tests]
+    C --> C3[Linting]
+    C --> C4[Coverage]
+    C --> C5[(PostgreSQL)]
+    
+    D --> D1[Multi-arch Build]
+    D --> D2[Trivy Scan]
+    D --> D3[Push to DockerHub]
+    
+    E --> E1[GKE Authentication]
+    E --> E2[Kubernetes Deployment]
+    E --> F[(GKE Cluster)]
+    
+    F --> F1[Deployment]
+    F --> F2[Service]
+    F --> F3[Ingress]
+    F --> F4[HPA]
+```
 ---
 
 ## Despliegue en Kubernetes
