@@ -211,15 +211,32 @@ PYTHONUNBUFFERED=1
 
 ---
 
-## Pruebas y Cobertura
+##  Pruebas y Cobertura
 
-- Pruebas unitarias con Django Test y DRF.
-- Cobertura con `coverage`.
-- Lint con `flake8`.
-- Ejecución en pipeline y local:
-    ```bash
-    python manage.py test
-    ```
+###  Suite de Pruebas
+- **Pruebas Unitarias**: Django Test Framework
+- **Pruebas API**: DRF TestClient
+- **Integración**: PostgreSQL en contenedor
+- **Linting**: Flake8 con estándar PEP8
+- **Cobertura**: Reporte HTML/XML con `coverage`
+
+###  Métricas de Calidad
+```mermaid
+pie
+    title Cobertura de Código (96.42%)
+    "Cubiertas" : 108
+    "No cubiertas" : 4
+```
+
+Ver reporte completo: [https://codecov.io/gh/Freperush/freperush-devsu-devops-test](https://codecov.io/gh/Freperush/freperush-devsu-devops-test)
+
+### Reporte de Seguridad Trivy
+| Componente       | Críticas | Altas | Medias | Bajas | Parcheadas |
+|------------------|----------|-------|--------|-------|------------|
+| Django           | 2        | 8     | 12     | 0     | 18         |
+| DRF              | 0        | 0     | 0      | 1     | 1          |
+| Sistema (Debian) | 0        | 0     | 0      | 0     | -          |
+
 
 ---
 
