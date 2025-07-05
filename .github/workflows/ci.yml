@@ -145,4 +145,5 @@ jobs:
           kubectl apply -f k8s/Remote/deployment.yaml -n namespace-devops-python
           kubectl apply -f k8s/Remote/service.yaml -n namespace-devops-python
           kubectl apply -f k8s/Remote/hpa.yaml -n namespace-devops-python
+          kubectl apply -f k8s/Remote/backendconfig.yaml -n namespace-devops-python
           kubectl apply -f k8s/Remote/ingress.gke.yaml -n namespace-devops-python
