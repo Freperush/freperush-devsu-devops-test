@@ -13,8 +13,8 @@ env.read_env(BASE_DIR / '.env')
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-ALLOWED_HOSTS =  ['localhost', 'demo-devops-python.local', '10.82.128.0/24', '10.0.0.0/8', '130.211.0.0/22', '35.191.0.0/16']
+DEBUG = False
+ALLOWED_HOSTS = ['localhost', 'demo-devops-python.local', '10.82.128.0/24', '10.0.0.0/8', '130.211.0.0/22', '35.191.0.0/16']
 # Application definition
 
 DJANGO_APPS = [
